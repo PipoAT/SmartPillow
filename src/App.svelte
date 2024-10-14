@@ -90,9 +90,95 @@
     <button class="dropdown-btn" on:click={(event) => toggleDropdown('dropdown4', event)}>
         <span class="text">Personalization</span>
     </button>
-    <div class="dropdown-content" id="dropdown4">
-        <p>This is the hidden information for Dropdown 4.</p>
+    <!-- Dropdown Personalization -->
+  <div class="dropdown-content" id="dropdown4">
+    <h2>Audio</h2>
+    <label for="audio-select">Choose an audio file:</label>
+    <select id="audio-select">
+      <option value="audio1.mp3">Audio 1</option>
+      <option value="audio2.mp3">Audio 2</option>
+      <option value="audio3.mp3">Audio 3</option>
+    </select>
+    <div class="audio-controls">
+      <button>Play</button>
+      <button>Pause</button>
+      <button>Stop</button>
     </div>
+    <br>
+    <div class="upload-audio">
+      <input type="file" accept="audio/*" />
+      <button>Upload Audio</button>
+    </div>
+
+    <script>
+      let selectedAudio = 'audio1.mp3';
+      let audio = new Audio();
+
+      function playAudio() {
+        audio.src = selectedAudio;
+        audio.play();
+      }
+
+      function pauseAudio() {
+        audio.pause();
+      }
+
+      function stopAudio() {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    </script>
+
+    <h2>Color</h2>
+    <label for="color-select">Choose a color:</label>
+    <select id="color-select">
+      <option value="red">Red</option>
+      <option value="green">Green</option>
+      <option value="blue">Blue</option>
+      <option value="black">Black</option>
+      <option value="white">White</option>
+      <option value="gray">Gray</option>
+      <option value="silver">Silver</option>
+      <option value="maroon">Maroon</option>
+      <option value="purple">Purple</option>
+      <option value="fuchsia">Fuchsia</option>
+      <option value="lime">Lime</option>
+      <option value="olive">Olive</option>
+      <option value="yellow">Yellow</option>
+      <option value="navy">Navy</option>
+      <option value="teal">Teal</option>
+      <option value="aqua">Aqua</option>
+      <option value="orange">Orange</option>
+      <option value="brown">Brown</option>
+      <option value="pink">Pink</option>
+      <option value="gold">Gold</option>
+      <option value="cyan">Cyan</option>
+      <option value="magenta">Magenta</option>
+    </select>
+    <br>
+    <br>
+    <div class="color-settings">
+      <label for="duration">Set Duration (in minutes):</label>
+      <input type="number" id="duration" min="1" max="1440" />
+      <br>
+      <br>
+      <label for="custom-color">Upload Custom Color:</label>
+      <input type="color" id="custom-color" />
+      <button>Add Color</button>
+    </div>
+
+    <script>
+      let customColors = [];
+
+      function addCustomColor() {
+        const colorInput = document.getElementById('custom-color');
+        const color = colorInput.value;
+        if (color && !customColors.includes(color)) {
+      customColors = [...customColors, color];
+        }
+      }
+    </script>
+  </div>
 </div>
 
 <!-- Dropdown Setting -->
