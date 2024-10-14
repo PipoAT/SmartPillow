@@ -14,12 +14,55 @@
 }
 
 .ui-region{
-  flex: 3;
+  flex: 5;
   background-color: #f0f0f0;
   /** padding: 20px; **/
 }
 .testing-info-region{
-  flex: 1;
+  flex: 2.5;
   background-color: #b1c2c6;
   /** padding: 20px; **/
 }
+
+
+
+.section { /** drop down section for each container **/
+  flex: 1;
+  height: 50px;
+  margin: 5px 0;
+  transition: height 0.3s ease;
+  background-color: #f0f0f0;
+  
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.section:hover {
+  background-color: #b0a9a9;
+
+}
+
+.section.expanded {
+  height: 300px;
+}
+
+.content {
+  padding: 10px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.section.expanded .content {
+  opacity: 1;
+}
+
+.content-placeholder {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 12px;
+  opacity: 0.5;
+}
+
