@@ -90,8 +90,8 @@
             <h2>Audio</h2>
             <label for="audio-select">Choose an audio file:</label>
             <select id="audio-select" bind:value={selectedAudio} on:change={updateAudio}>
-              <option value="src/assets/audio1.mp3">Audio 1</option>
-              <option value="src/assets/audio2.mp3">Audio 2</option>
+              <option value="/audio1.mp3">Audio 1</option>
+              <option value="/audio2.mp3">Audio 2</option>
             </select>
             <div class="audio-controls">
               <button on:click={playAudio}>Play</button>
@@ -165,7 +165,7 @@
       <p>Testing UI Partition</p>
     </div>
     <div class="pillow" style="display: flex; justify-content: center; align-items: center;">
-      <img id="pillowimage" src="src/assets/pillow.png" width="200px" height="200px">
+      <img id="pillowimage" src="/pillow.png" width="200px" height="200px">
     </div>
     <p id="pillowcolorindicator" style="display: flex; justify-content: center; align-items: center;">Pillow Color: White</p>
   </div>
