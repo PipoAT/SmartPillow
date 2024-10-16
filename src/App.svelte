@@ -95,7 +95,6 @@
         </select>
         <div class="audio-controls">
           <button on:click={playAudio}>Play</button>
-          <button on:click={pauseAudio}>Pause</button>
           <button on:click={stopAudio}>Stop</button>
         </div>
         <br>
@@ -105,8 +104,16 @@
         </div>
 
         <h2>Color</h2>
+        <label for="custom-color">Add a custom color:</label>
+        <input type="color" id="custom-color" />
+        <button on:click={addCustomColor}>Add Color</button>
+        <br>
+        <br>
         <label for="color-select">Choose a color:</label>
         <select id="color-select">
+          {#each customColors as color}
+            <option value={color}>{color}</option>
+          {/each}
           <option value="red">Red</option>
           <option value="green">Green</option>
           <option value="blue">Blue</option>
@@ -137,9 +144,6 @@
           <input type="number" id="duration" min="1" max="1440" />
           <br>
           <br>
-          <label for="custom-color">Upload Custom Color:</label>
-          <input type="color" id="custom-color" />
-          <button on:click={addCustomColor}>Add Color</button>
         </div>
       </div>
     </div>
@@ -314,10 +318,6 @@
   function playAudio() {
     audio.src = selectedAudio;
     audio.play();
-  }
-
-  function pauseAudio() {
-    audio.pause();
   }
 
   function stopAudio() {
