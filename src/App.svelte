@@ -1,214 +1,181 @@
 <!-- UI Region -->
-<div class = "basecontainer"> 
- 
+<div class="basecontainer"> 
+
   <div class="ui-region">
 
     <div class="title-bar">
       <p>Device UI Partition</p>
-  </div>
-  <p class="user-title">Hello, User</p>
-  <div class="upcontainer" style:display={showSquares ? 'flex' : 'none'}>
-    <div class="square" on:click={() => handleSquareClick('Square 1')}>Square 1
-
     </div>
-    <div class="square" on:click={() => handleSquareClick('Setting')}>Setting
-
+    <p class="user-title">Hello, User</p>
+    <div class="upcontainer" style:display={showSquares ? 'flex' : 'none'}>
+      <div class="square" on:click={() => handleSquareClick('Square 1')}>Square 1</div>
+      <div class="square" on:click={() => handleSquareClick('Setting')}>Setting</div>
     </div>
 
-  </div>
-
-  <button class="reset-button" on:click={resetSquares}>Show Squares Again</button>
+    <button class="reset-button" on:click={resetSquares}>Show Squares Again</button>
+    
     <!-- Dropdown Sleep/Health -->
     <div class="dropdown">
       <button class="dropdown-btn" on:click={(event) => toggleDropdown('dropdown1', event)}>
-          <span class="text">Sleep/Health</span>
+        <span class="text">Sleep/Health</span>
       </button>
       <div class="dropdown-content" id="dropdown1">
-          <p>This is the hidden information for Dropdown 1.</p>
+        <p>This is the hidden information for Dropdown 1.</p>
       </div>
     </div>
 
-<!-- Dropdown Alarm -->
-<div class="dropdown">
-  <button class="dropdown-btn" on:click={(event) => toggleDropdown('dropdown2', event)}>
-      <span class="text">Alarm</span>
-  </button>
-  <div class="dropdown-content" id="dropdown2">
-      <div class="container">
+    <!-- Dropdown Alarm -->
+    <div class="dropdown">
+      <button class="dropdown-btn" on:click={(event) => toggleDropdown('dropdown2', event)}>
+        <span class="text">Alarm</span>
+      </button>
+      <div class="dropdown-content" id="dropdown2">
+        <div class="container">
           <div class="header">
-              <h1>My Alarm Manager</h1>
-              <button class="plus-button" on:click={toggleMenu}>+</button>
+            <h1>My Alarm Manager</h1>
+            <button class="plus-button" on:click={toggleMenu}>+</button>
           </div>
 
           <div id="alarms-container" class="alarms-container"></div>
           <div id="popup-menu" class="popup-menu">
-              <div class="menu-header">
-                  <button class="menu-button" on:click={closeMenu}>Cancel</button>
-                  <button class="menu-button" on:click={saveAndClose}>Save</button>
-              </div>
-              <!-- Clock dropdowns -->
-              <div class="clock-container">
-                  <label for="hours">Hours:</label>
-                  <select id="hours">
-                      <!-- Hours 1 to 12 -->
-                      {#each Array(12) as _, i}
-                          <option value={String(i + 1).padStart(2, '0')}>{String(i + 1).padStart(2, '0')}</option>
-                      {/each}
-                  </select>
+            <div class="menu-header">
+              <button class="menu-button" on:click={closeMenu}>Cancel</button>
+              <button class="menu-button" on:click={saveAndClose}>Save</button>
+            </div>
+            <!-- Clock dropdowns -->
+            <div class="clock-container">
+              <label for="hours">Hours:</label>
+              <select id="hours">
+                <!-- Hours 1 to 12 -->
+                {#each Array(12) as _, i}
+                  <option value={String(i + 1).padStart(2, '0')}>{String(i + 1).padStart(2, '0')}</option>
+                {/each}
+              </select>
 
-                  <label for="minutes">Minutes:</label>
-                  <select id="minutes">
-                      <!-- Minutes 00 to 55, every 5 minutes -->
-                      {#each Array(12) as _, i}
-                          <option value={String(i * 5).padStart(2, '0')}>{String(i * 5).padStart(2, '0')}</option>
-                      {/each}
-                  </select>
+              <label for="minutes">Minutes:</label>
+              <select id="minutes">
+                <!-- Minutes 00 to 55, every 5 minutes -->
+                {#each Array(12) as _, i}
+                  <option value={String(i * 5).padStart(2, '0')}>{String(i * 5).padStart(2, '0')}</option>
+                {/each}
+              </select>
 
-                  <label for="ampm">AM/PM:</label>
-                  <select id="ampm">
-                      <option value="AM">AM</option>
-                      <option value="PM">PM</option>
-                  </select>
-              </div>
+              <label for="ampm">AM/PM:</label>
+              <select id="ampm">
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+              </select>
+            </div>
           </div>
+        </div>
       </div>
-  </div>
-</div>
+    </div>
 
-<!-- Dropdown Comfort -->
-<div class="dropdown">
-    <button class="dropdown-btn" on:click={(event) => toggleDropdown('dropdown3', event)}>
+    <!-- Dropdown Comfort -->
+    <div class="dropdown">
+      <button class="dropdown-btn" on:click={(event) => toggleDropdown('dropdown3', event)}>
         <span class="text">Comfort</span>
-    </button>
-    <div class="dropdown-content" id="dropdown3">
+      </button>
+      <div class="dropdown-content" id="dropdown3">
         <p>This is the hidden information for Dropdown 3.</p>
+      </div>
     </div>
-</div>
 
-<!-- Dropdown Personalization -->
-<div class="dropdown">
-    <button class="dropdown-btn" on:click={(event) => toggleDropdown('dropdown4', event)}>
-        <span class="text">Personalization</span>
-    </button>
     <!-- Dropdown Personalization -->
-  <div class="dropdown-content" id="dropdown4">
-    <h2>Audio</h2>
-    <label for="audio-select">Choose an audio file:</label>
-    <select id="audio-select">
-      <option value="audio1.mp3">Audio 1</option>
-      <option value="audio2.mp3">Audio 2</option>
-      <option value="audio3.mp3">Audio 3</option>
-    </select>
-    <div class="audio-controls">
-      <button>Play</button>
-      <button>Pause</button>
-      <button>Stop</button>
-    </div>
-    <br>
-    <div class="upload-audio">
-      <input type="file" accept="audio/*" />
-      <button>Upload Audio</button>
-    </div>
+    <div class="dropdown">
+      <button class="dropdown-btn" on:click={(event) => toggleDropdown('dropdown4', event)}>
+        <span class="text">Personalization</span>
+      </button>
+      <div class="dropdown-content" id="dropdown4">
+        <h2>Audio</h2>
+        <label for="audio-select">Choose an audio file:</label>
+        <select id="audio-select" bind:value={selectedAudio} on:change={updateAudio}>
+          <option value="src/assets/audio1.mp3">Audio 1</option>
+          <option value="src/assets/audio2.mp3">Audio 2</option>
+        </select>
+        <div class="audio-controls">
+          <button on:click={playAudio}>Play</button>
+          <button on:click={stopAudio}>Stop</button>
+        </div>
+        <br>
+        <div class="upload-audio">
+          <input type="file" accept="audio/*" />
+          <button>Upload Audio</button>
+        </div>
 
-    <script>
-      let selectedAudio = 'audio1.mp3';
-      let audio = new Audio();
-
-      function playAudio() {
-        audio.src = selectedAudio;
-        audio.play();
-      }
-
-      function pauseAudio() {
-        audio.pause();
-      }
-
-      function stopAudio() {
-        audio.pause();
-        audio.currentTime = 0;
-      }
-    </script>
-
-    <h2>Color</h2>
-    <label for="color-select">Choose a color:</label>
-    <select id="color-select">
-      <option value="red">Red</option>
-      <option value="green">Green</option>
-      <option value="blue">Blue</option>
-      <option value="black">Black</option>
-      <option value="white">White</option>
-      <option value="gray">Gray</option>
-      <option value="silver">Silver</option>
-      <option value="maroon">Maroon</option>
-      <option value="purple">Purple</option>
-      <option value="fuchsia">Fuchsia</option>
-      <option value="lime">Lime</option>
-      <option value="olive">Olive</option>
-      <option value="yellow">Yellow</option>
-      <option value="navy">Navy</option>
-      <option value="teal">Teal</option>
-      <option value="aqua">Aqua</option>
-      <option value="orange">Orange</option>
-      <option value="brown">Brown</option>
-      <option value="pink">Pink</option>
-      <option value="gold">Gold</option>
-      <option value="cyan">Cyan</option>
-      <option value="magenta">Magenta</option>
-    </select>
-    <br>
-    <br>
-    <div class="color-settings">
-      <label for="duration">Set Duration (in minutes):</label>
-      <input type="number" id="duration" min="1" max="1440" />
-      <br>
-      <br>
-      <label for="custom-color">Upload Custom Color:</label>
-      <input type="color" id="custom-color" />
-      <button>Add Color</button>
+        <h2>Color</h2>
+        <label for="custom-color">Add a custom color:</label>
+        <input type="color" id="custom-color" />
+        <button on:click={addCustomColor}>Add Color</button>
+        <br>
+        <br>
+        <label for="color-select">Choose a color:</label>
+        <select id="color-select">
+          {#each customColors as color}
+            <option value={color}>{color}</option>
+          {/each}
+          <option value="red">Red</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+          <option value="black">Black</option>
+          <option value="white">White</option>
+          <option value="gray">Gray</option>
+          <option value="silver">Silver</option>
+          <option value="maroon">Maroon</option>
+          <option value="purple">Purple</option>
+          <option value="fuchsia">Fuchsia</option>
+          <option value="lime">Lime</option>
+          <option value="olive">Olive</option>
+          <option value="yellow">Yellow</option>
+          <option value="navy">Navy</option>
+          <option value="teal">Teal</option>
+          <option value="aqua">Aqua</option>
+          <option value="orange">Orange</option>
+          <option value="brown">Brown</option>
+          <option value="pink">Pink</option>
+          <option value="gold">Gold</option>
+          <option value="cyan">Cyan</option>
+          <option value="magenta">Magenta</option>
+        </select>
+        <br>
+        <br>
+        <div class="color-settings">
+          <label for="duration">Set Duration (in minutes):</label>
+          <input type="number" id="duration" min="1" max="1440" />
+          <br>
+          <br>
+        </div>
+      </div>
     </div>
 
-    <script>
-      let customColors = [];
-
-      function addCustomColor() {
-        const colorInput = document.getElementById('custom-color');
-        const color = colorInput.value;
-        if (color && !customColors.includes(color)) {
-      customColors = [...customColors, color];
-        }
-      }
-    </script>
-  </div>
-</div>
-
-<!-- Dropdown Setting -->
-<div class="dropdown">
-    <button class="dropdown-btn" on:click={(event) => toggleDropdown('dropdown5', event)}>
+    <!-- Dropdown Setting -->
+    <div class="dropdown">
+      <button class="dropdown-btn" on:click={(event) => toggleDropdown('dropdown5', event)}>
         <span class="text">Setting</span>
-    </button>
-    <div class="dropdown-content" id="dropdown5">
+      </button>
+      <div class="dropdown-content" id="dropdown5">
         <p>This is the hidden information for Dropdown 5.</p>
+      </div>
     </div>
-</div>
-</div>
-
-
+  </div>
 
   <!-- Testing UI -->
   <div class="testing-info-region">
-    <div class = "title-bar">
-      <p> Testing UI Partition</p>
+    <div class="title-bar">
+      <p>Testing UI Partition</p>
     </div>
-    <p> testing info </p>
+    <p>testing info</p>
   </div>
 
 </div>
 
 <script>
-    import { onMount } from 'svelte';
+  import { onMount } from 'svelte';
 
   let showUiRegion = false;
   let showSquares = true; // State to control the visibility of squares
+  let selectedAudio = 'src/assets/audio1.mp3';
+  let audio = new Audio();
 
   function handleSquareClick(square) {
     showUiRegion = true;
@@ -234,129 +201,141 @@
     showSquares = true; // Show squares again
   }
 
+  let dropdowns = [];
+  let activeDropdown = null;
 
-let dropdowns = [];
-let activeDropdown = null;
-
-onMount(() => {
+  onMount(() => {
     dropdowns = document.querySelectorAll('.dropdown-content');
-});
+  });
 
-function toggleDropdown(dropdownId, event) {
+  function toggleDropdown(dropdownId, event) {
     // Get the main container or body where the blur will be applied
     const mainContainer = document.querySelector('.upcontainer'); // Adjust the selector based on your layout
     const dropdowns = document.querySelectorAll('.dropdown'); // Ensure to select all dropdowns
 
     dropdowns.forEach(dropdown => {
-        if (dropdown.id !== dropdownId) {
-            dropdown.previousElementSibling.classList.remove('active'); // Remove active class
-        }
+      if (dropdown.id !== dropdownId) {
+        dropdown.previousElementSibling.classList.remove('active'); // Remove active class
+      }
     });
 
     const dropdown = document.getElementById(dropdownId);
     if (dropdown.style.display === 'block') {
-        dropdown.style.display = 'none';
-        event.target.classList.remove('active'); // Remove active class
-        mainContainer.classList.remove('blur'); // Remove blur when closing
+      dropdown.style.display = 'none';
+      event.target.classList.remove('active'); // Remove active class
+      mainContainer.classList.remove('blur'); // Remove blur when closing
     } else {
-        dropdown.style.display = 'block';
-        event.target.classList.add('active'); // Add active class
-        mainContainer.classList.add('blur'); // Add blur when opening
+      dropdown.style.display = 'block';
+      event.target.classList.add('active'); // Add active class
+      mainContainer.classList.add('blur'); // Add blur when opening
     }
-}
+  }
 
-    function toggleMenu() {
-        const popupMenu = document.getElementById('popup-menu');
-        popupMenu.classList.toggle('show'); // Toggle visibility of the popup
+  function toggleMenu() {
+    const popupMenu = document.getElementById('popup-menu');
+    popupMenu.classList.toggle('show'); // Toggle visibility of the popup
+  }
+
+  function closeMenu() {
+    const popupMenu = document.getElementById('popup-menu');
+    popupMenu.classList.remove('show'); // Close the popup menu
+    var menu = document.getElementById("popup-menu");
+    menu.classList.remove("show");
+  }
+
+  let alarms = []; // Array to hold alarm times
+
+  function saveAndClose() {
+    // Get selected values
+    var hours = document.getElementById("hours").value;
+    var minutes = document.getElementById("minutes").value;
+    var ampm = document.getElementById("ampm").value;
+
+    // Format selected time
+    var selectedTime = hours + ":" + minutes + " " + ampm;
+
+    // Check if we can add more alarms
+    if (alarms.length < 10) {
+      alarms.push({ time: selectedTime, disabled: false });
+      displayAlarms();
+    } else {
+      alert("Maximum of 10 alarms reached!");
     }
 
-    function closeMenu() {
-        const popupMenu = document.getElementById('popup-menu');
-        popupMenu.classList.remove('show'); // Close the popup menu
-        var menu = document.getElementById("popup-menu");
-        menu.classList.remove("show");
+    // Close the pop-up menu
+    closeMenu();
+  }
+
+  function displayAlarms() {
+    const alarmsContainer = document.getElementById("alarms-container");
+    alarmsContainer.innerHTML = ""; // Clear previous alarms
+    alarms.forEach((alarm, index) => {
+      const alarmDiv = document.createElement("div");
+      alarmDiv.className = "alarm-item";
+      alarmDiv.innerText = alarm.disabled ? `DISABLED: ${alarm.time}` : alarm.time;
+
+      // Button to remove alarm
+      const removeButton = document.createElement("button");
+      removeButton.innerText = "Remove";
+      removeButton.onclick = () => removeAlarm(index);
+      alarmDiv.appendChild(removeButton);
+
+      // Toggle switch to disable/enable alarm
+      const toggleDiv = document.createElement("label");
+      toggleDiv.className = "switch";
+      const input = document.createElement("input");
+      input.type = "checkbox";
+      input.checked = !alarm.disabled; // Check if alarm is enabled
+      input.onclick = () => toggleAlarm(index); // Toggle alarm state
+
+      const slider = document.createElement("span");
+      slider.className = "slider";
+
+      toggleDiv.appendChild(input);
+      toggleDiv.appendChild(slider);
+      alarmDiv.appendChild(toggleDiv);
+
+      // Style disabled alarms
+      if (alarm.disabled) {
+        alarmDiv.style.color = "gray"; // Change text color for disabled alarms
+        alarmDiv.style.textDecoration = "line-through"; // Add strikethrough effect
+      }
+
+      alarmsContainer.appendChild(alarmDiv);
+    });
+  }
+
+  function removeAlarm(index) {
+    alarms.splice(index, 1); // Remove alarm from array
+    displayAlarms(); // Update displayed alarms
+  }
+
+  function toggleAlarm(index) {
+    alarms[index].disabled = !alarms[index].disabled; // Toggle the disabled state
+    displayAlarms(); // Update displayed alarms
+  }
+
+  function playAudio() {
+    audio.src = selectedAudio;
+    audio.play();
+  }
+
+  function stopAudio() {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+
+  function updateAudio(event) {
+    selectedAudio = event.target.value;
+  }
+
+  let customColors = [];
+
+  function addCustomColor() {
+    const colorInput = document.getElementById('custom-color');
+    const color = colorInput.value;
+    if (color && !customColors.includes(color)) {
+      customColors = [...customColors, color];
     }
-
-        let alarms = []; // Array to hold alarm times
-
-//        function toggleMenu() {
-//            var menu = document.getElementById("popup-menu");
-//            menu.classList.toggle("show");
-//        }
-
-//        function closeMenu() {
-//            var menu = document.getElementById("popup-menu");
-//            menu.classList.remove("show");
-//        }
-
-        function saveAndClose() {
-            // Get selected values
-            var hours = document.getElementById("hours").value;
-            var minutes = document.getElementById("minutes").value;
-            var ampm = document.getElementById("ampm").value;
-
-            // Format selected time
-            var selectedTime = hours + ":" + minutes + " " + ampm;
-
-            // Check if we can add more alarms
-            if (alarms.length < 10) {
-                alarms.push({ time: selectedTime, disabled: false });
-                displayAlarms();
-            } else {
-                alert("Maximum of 10 alarms reached!");
-            }
-
-            // Close the pop-up menu
-            closeMenu();
-        }
-
-        function displayAlarms() {
-        const alarmsContainer = document.getElementById("alarms-container");
-        alarmsContainer.innerHTML = ""; // Clear previous alarms
-        alarms.forEach((alarm, index) => {
-            const alarmDiv = document.createElement("div");
-            alarmDiv.className = "alarm-item";
-            alarmDiv.innerText = alarm.disabled ? `DISABLED: ${alarm.time}` : alarm.time;
-
-            // Button to remove alarm
-            const removeButton = document.createElement("button");
-            removeButton.innerText = "Remove";
-            removeButton.onclick = () => removeAlarm(index);
-            alarmDiv.appendChild(removeButton);
-
-            // Toggle switch to disable/enable alarm
-            const toggleDiv = document.createElement("label");
-            toggleDiv.className = "switch";
-            const input = document.createElement("input");
-            input.type = "checkbox";
-            input.checked = !alarm.disabled; // Check if alarm is enabled
-            input.onclick = () => toggleAlarm(index); // Toggle alarm state
-
-            const slider = document.createElement("span");
-            slider.className = "slider";
-
-            toggleDiv.appendChild(input);
-            toggleDiv.appendChild(slider);
-            alarmDiv.appendChild(toggleDiv);
-
-            // Style disabled alarms
-            if (alarm.disabled) {
-                alarmDiv.style.color = "gray"; // Change text color for disabled alarms
-                alarmDiv.style.textDecoration = "line-through"; // Add strikethrough effect
-            }
-
-            alarmsContainer.appendChild(alarmDiv);
-          });
-        }
-
-        function removeAlarm(index) {
-            alarms.splice(index, 1); // Remove alarm from array
-            displayAlarms(); // Update displayed alarms
-        }
-
-        function toggleAlarm(index) {
-            alarms[index].disabled = !alarms[index].disabled; // Toggle the disabled state
-            displayAlarms(); // Update displayed alarms
-        }
-
+  }
 </script>
