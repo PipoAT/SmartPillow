@@ -64,79 +64,79 @@
               <select id="ampm">
                 <option value="AM">AM</option>
                 <option value="PM">PM</option>
-              </select>
+                </select>
+              </div>
+              </div>
+            </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Dropdown Comfort -->
-    <div class="dropdown">
-      <button class="dropdown-btn" on:click={(event) => toggleDropdown('dropdown3', event)}>
-        <span class="text">Comfort</span>
-      </button>
-      <div class="dropdown-content" id="dropdown3">
-        <p>This is the hidden information for Dropdown 3.</p>
-      </div>
-    </div>
+          <!-- Dropdown Comfort -->
+          <div class="dropdown">
+            <button class="dropdown-btn" on:click={(event) => toggleDropdown('dropdown3', event)}>
+            <span class="text">Comfort</span>
+            </button>
+            <div class="dropdown-content" id="dropdown3">
+            <p>This is the hidden information for Dropdown 3.</p>
+            </div>
+          </div>
 
-    <!-- Dropdown Personalization -->
-    <div class="dropdown">
-      <button class="dropdown-btn" on:click={(event) => toggleDropdown('dropdown4', event)}>
-        <span class="text">Personalization</span>
-      </button>
-      <div class="dropdown-content" id="dropdown4">
-        <h2>Audio</h2>
-        <label for="audio-select">Choose an audio file:</label>
-        <select id="audio-select" bind:value={selectedAudio} on:change={updateAudio}>
-          <option value="src/assets/audio1.mp3">Audio 1</option>
-          <option value="src/assets/audio2.mp3">Audio 2</option>
-        </select>
-        <div class="audio-controls">
-          <button on:click={playAudio}>Play</button>
-          <button on:click={stopAudio}>Stop</button>
-        </div>
-        <br>
-        <div class="upload-audio">
-          <input type="file" accept="audio/*" />
-          <button>Upload Audio</button>
-        </div>
+          <!-- Dropdown Personalization -->
+          <div class="dropdown">
+            <button class="dropdown-btn" on:click={(event) => toggleDropdown('dropdown4', event)}>
+            <span class="text">Personalization</span>
+            </button>
+            <div class="dropdown-content" id="dropdown4">
+            <h2>Audio</h2>
+            <label for="audio-select">Choose an audio file:</label>
+            <select id="audio-select" bind:value={selectedAudio} on:change={updateAudio}>
+              <option value="src/assets/audio1.mp3">Audio 1</option>
+              <option value="src/assets/audio2.mp3">Audio 2</option>
+            </select>
+            <div class="audio-controls">
+              <button on:click={playAudio}>Play</button>
+              <button on:click={stopAudio}>Stop</button>
+            </div>
+            <br>
+            <div class="upload-audio">
+              <input type="file" accept="audio/*" />
+              <button>Upload Audio</button>
+            </div>
 
-        <h2>Color</h2>
-        <label for="custom-color">Add a custom color:</label>
-        <input type="color" id="custom-color" />
-        <button on:click={addCustomColor}>Add Color</button>
-        <br>
-        <br>
-        <label for="color-select">Choose a color:</label>
-        <select id="color-select">
-          {#each customColors as color}
-            <option value={color}>{color}</option>
-          {/each}
-          <option value="red">Red</option>
-          <option value="green">Green</option>
-          <option value="blue">Blue</option>
-          <option value="black">Black</option>
-          <option value="white">White</option>
-          <option value="gray">Gray</option>
-          <option value="silver">Silver</option>
-          <option value="maroon">Maroon</option>
-          <option value="purple">Purple</option>
-          <option value="fuchsia">Fuchsia</option>
-          <option value="lime">Lime</option>
-          <option value="olive">Olive</option>
-          <option value="yellow">Yellow</option>
-          <option value="navy">Navy</option>
-          <option value="teal">Teal</option>
-          <option value="aqua">Aqua</option>
-          <option value="orange">Orange</option>
-          <option value="brown">Brown</option>
-          <option value="pink">Pink</option>
-          <option value="gold">Gold</option>
-          <option value="cyan">Cyan</option>
-          <option value="magenta">Magenta</option>
-        </select>
+            <h2>Color</h2>
+            <label for="custom-color">Add a custom color:</label>
+            <input type="color" id="custom-color" />
+            <button on:click={addCustomColor}>Add Color</button>
+            <br>
+            <br>
+            <label for="color-select">Choose a color:</label>
+            <select id="color-select" on:change={updatePillowColor}>
+              {#each customColors as color}
+              <option value={color}>{color}</option>
+              {/each}
+              <option value="white">White</option>
+              <option value="red">Red</option>
+              <option value="green">Green</option>
+              <option value="blue">Blue</option>
+              <option value="black">Black</option>
+              <option value="gray">Gray</option>
+              <option value="silver">Silver</option>
+              <option value="maroon">Maroon</option>
+              <option value="purple">Purple</option>
+              <option value="fuchsia">Fuchsia</option>
+              <option value="lime">Lime</option>
+              <option value="olive">Olive</option>
+              <option value="yellow">Yellow</option>
+              <option value="navy">Navy</option>
+              <option value="teal">Teal</option>
+              <option value="aqua">Aqua</option>
+              <option value="orange">Orange</option>
+              <option value="brown">Brown</option>
+              <option value="pink">Pink</option>
+              <option value="gold">Gold</option>
+              <option value="cyan">Cyan</option>
+              <option value="magenta">Magenta</option>
+            </select>
         <br>
         <br>
         <div class="color-settings">
@@ -164,7 +164,10 @@
     <div class="title-bar">
       <p>Testing UI Partition</p>
     </div>
-    <p>testing info</p>
+    <div class="pillow" style="display: flex; justify-content: center; align-items: center;">
+      <img id="pillowimage" src="src/assets/pillow.png" width="200px" height="200px">
+    </div>
+    <p id="pillowcolorindicator" style="display: flex; justify-content: center; align-items: center;">Pillow Color: White</p>
   </div>
 
 </div>
@@ -173,6 +176,7 @@
   import { onMount } from 'svelte';
 
   let showUiRegion = false;
+  let pillowImage; // Declare pillowImage variable
   let showSquares = true; // State to control the visibility of squares
   let selectedAudio = 'src/assets/audio1.mp3';
   let audio = new Audio();
@@ -241,6 +245,19 @@
     popupMenu.classList.remove('show'); // Close the popup menu
     var menu = document.getElementById("popup-menu");
     menu.classList.remove("show");
+  }
+
+  function updatePillowColor(event) {
+    const selectedColor = event.target.value;
+    const pillowImage = document.getElementById('pillowimage');
+    if (pillowImage) {
+      pillowImage.style.backgroundColor = selectedColor;
+    }
+
+    const textDisplay = document.getElementById('pillowcolorindicator');
+    if (textDisplay) {
+      textDisplay.innerText = `Pillow color: ${selectedColor}`;
+    }
   }
 
   let alarms = []; // Array to hold alarm times
