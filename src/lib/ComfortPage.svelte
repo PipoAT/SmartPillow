@@ -253,9 +253,9 @@
 
   .tempText {
     position: absolute;
-    width: 100%;
+    width: 50px;
     z-index: 1;
     top: 185px;
-    left: 45px;
+    left: 158px;
   }
 </style>
