@@ -236,8 +236,6 @@
 <script>
 import { onMount } from 'svelte';
 import ComfortPage from './lib/ComfortPage.svelte';
-
-import { onMount } from 'svelte';
 import { AlarmClock } from 'lucide-svelte';
 import { UserRoundCog } from 'lucide-svelte';
 import { Cog } from 'lucide-svelte';
