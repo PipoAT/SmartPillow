@@ -303,8 +303,4 @@
 
 .ui-region input:checked + .slider:before {
   transform: translateX(20px); /* Move the ball to the right */
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> d04a769ad2fc59d76f7a335831f30f1c1634856e

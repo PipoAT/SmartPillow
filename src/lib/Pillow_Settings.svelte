@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
   let connectToPhone = false;
   let timeFormat = "24hr";
   let defaultVolume = 50;

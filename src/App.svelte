@@ -8,7 +8,11 @@
     </div>
     <p class="user-title">Hello, User</p>
     <div class="upcontainer" style:display={showSquares ? 'flex' : 'none'}>
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div class="square" on:click={() => handleSquareClick('Square 1')}>Square 1</div>
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div class="square" on:click={() => handleSquareClick('Setting')}>Setting</div>
     </div>
 
@@ -154,7 +158,7 @@
         <span class="text">Setting</span>
       </button>
       <div class="dropdown-content" id="dropdown5">
-        <p>This is the hidden information for Dropdown 5.</p>
+        <Settings/>
       </div>
     </div>
   </div>
@@ -165,6 +169,7 @@
       <p>Testing UI Partition</p>
     </div>
     <div class="pillow" style="display: flex; justify-content: center; align-items: center;">
+      <!-- svelte-ignore a11y-missing-attribute -->
       <img id="pillowimage" src="/pillow.png" width="200px" height="200px">
     </div>
     <p id="pillowcolorindicator" style="display: flex; justify-content: center; align-items: center;">Pillow Color: White</p>
@@ -173,8 +178,11 @@
 </div>
 
 <script>
-  import { onMount } from 'svelte';
+// @ts-nocheck
 
+  import { onMount } from 'svelte';
+  import Settings from './lib/Pillow_Settings.svelte';
+  
   let showUiRegion = false;
   let pillowImage; // Declare pillowImage variable
   let showSquares = true; // State to control the visibility of squares
