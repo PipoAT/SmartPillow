@@ -197,7 +197,7 @@
         <br>
         <div class="color-settings">
           <label for="duration">Set Duration (in minutes):</label>
-          <input type="number" id="duration" min="1" max="1440" />
+          <input type="number" id="duration" min="1" max="1440" on:change={updatePillowTimer}/>
           <br>
           <br>
         </div>
@@ -230,6 +230,7 @@
       <img id="pillowimage" src="/pillow.png" width="200px" height="200px">
     </div>
     <p id="pillowcolorindicator" style="display: flex; justify-content: center; align-items: center;">Pillow Color: White</p>
+    <p id="pillowduration" style="display: flex; justify-content: center; align-items: center;">Duration: 0 minutes</p> 
   </div>
 </div>
 
