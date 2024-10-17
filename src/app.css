@@ -214,16 +214,6 @@
 }
 
 
-.ui-region .dropdown-btn::before {
-  content: '\25B6'; /* Unicode for a right-pointing arrow */
-  font-size: 16px;
-  transition: transform 0.3s ease;
-}
-
-.ui-region .dropdown-btn.active::before {
-  transform: rotate(90deg); /* Rotate arrow 90 degrees */
-}
-
 .ui-region .dropdown-content {
   display: none;
   margin-top: 10px;
