@@ -81,7 +81,7 @@
             <span class="text">Comfort</span>
             </button>
             <div class="dropdown-content" id="dropdown3">
-            <p>This is the hidden information for Dropdown 3.</p>
+            <ComfortPage />
             </div>
           </div>
 
@@ -181,8 +181,7 @@
 // @ts-nocheck
 
   import { onMount } from 'svelte';
-  import Settings from './lib/Pillow_Settings.svelte';
-  
+
   let showUiRegion = false;
   let pillowImage; // Declare pillowImage variable
   let showSquares = true; // State to control the visibility of squares
