@@ -460,6 +460,14 @@ function updatePillowColor(event) {
     }
 }
 
+function updatePillowTimer(event) {
+    const duration = event.target.value;
+    const textDisplay = document.getElementById('pillowduration');
+    if (textDisplay) {
+      textDisplay.innerText = `Duration: ${duration} minutes`;
+    }
+}
+
 function saveAndClose() {
   // Get selected values
   var hours = document.getElementById("hours").value;
