@@ -5,12 +5,12 @@
   --testing-info-bg-color: #b1c2c6;
   --dropdown-btn-bg-color: #7955d4;
   --dropdown-btn-active-bg-color: #907bd2;
-  --dropdown-content-bg-color: #f6f3fb;
+  --dropdown-content-bg-color: #907bd2;
   --dropdown-btn-text-color: #f6f3fb;
   --border-color: #ccc;
   --plus-button-bg-color: #7955d4;
   --plus-button-text-color: white;
-  --popup-menu-bg-color: #f6f3fb;
+  --popup-menu-bg-color: #ccc;
   --popup-menu-border-color: #5c3cab;
   --popup-menu-header-bg-color: #f6f3fb;
   --menu-button-bg-color: #7955d4;
@@ -22,7 +22,10 @@
   --user-title-color: #5c3cab; /* Default text color */
   --user-title-font-size: 24px; /* Default font size */
   --square-background-color: #907bd2; /* Default square background color */
+  --dropdown-btn-hover: #5c3cab;
 }
+
+
 .blur {
   filter: blur(5px); /* Adjust the blur strength as needed */
   transition: filter 0.3s ease; /* Smooth transition for the blur effect */
@@ -44,6 +47,7 @@
   overflow: hidden; /* Prevent overflow */
 }
 
+
 .square {
   flex: 1 1 calc(35% - 10px); /* Flex-grow, flex-shrink, and base width */
   max-width: calc(45% - 10px); /* Ensure squares don't exceed this width */
@@ -57,7 +61,20 @@
   cursor: pointer;
   margin: 5px; /* Spacing between squares */
   box-sizing: border-box; /* Include padding and border in size calculations */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
 }
+
+
+.square:hover {
+  transform: scale(1.05); /* Slightly increase size on hover */
+  background-color: var(--popup-menu-border-color); /* Change background color on hover */
+}
+
+.square:active {
+  transform: scale(0.95); /* Slightly decrease size on click */
+  background-color: var(--square-active-background-color); /* Change background color on click */
+}
+
 
 .reset-button {
   width: 100%; /* Button takes up full width */
@@ -77,12 +94,12 @@
 
 .basecontainer {
   display: flex;
-  height: 100vh;
 }
 
 .ui-region {
   flex: 3;
-  background-color: var(--ui-region-bg-color);
+  background-color: linear-gradient(135deg, #7955d4, #957bd2);
+  /*background-color: var(--ui-region-bg-color);*/
   padding: 20px; /* Add padding if needed */
   position: relative; /* Ensure that absolute positioning within works */
 }
@@ -100,30 +117,88 @@
   border-radius: 5px; /* Adjust this value for more or less roundness */
 }
 
+.button-test {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  width: 90%; /* Buttons take up 90% of the container width */
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
 .testing-info-region{
   flex: 1;
   background-color: var(--testing-info-bg-color);
   /** padding: 20px; **/
 }
 
+.icon-box {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: calc(0.5em + 0.5vw); /* Slightly reduced dynamic padding */
+  border-radius: 12px;
+  background-color: #f0f0f0; /* Light background color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for app-like effect */
+  transition: background-color 0.3s ease, padding 0.3s ease; /* Smooth transitions */
+}
+
+.icon-box:hover {
+  background-color: #e0e0e0; /* Hover effect */
+}
+
+.icon-box svg {
+  width: calc(1.8em + 0.8vw);  /* Slightly reduced dynamic icon size */
+  height: calc(1.8em + 0.8vw); /* Slightly reduced dynamic icon size */
+  color: #333; /* Set icon color */
+}
+
+
+
 .ui-region .dropdown {
   margin: 15px 0; /* Adjusted for even spacing */
   width: 100%; /* Full width of the container */
   border-radius: 5px; /* Adjust this value for more or less roundness */
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
 }
 
 .ui-region .dropdown-btn {
   width: 100%; /* Button takes up full width */
-  padding: 15px 20px;
+  padding: calc(0.5em + 1vw) 20px; /* Dynamic padding based on viewport width */
   background-color: var(--dropdown-btn-bg-color);
   color: var(--dropdown-btn-text-color);
   border: none;
   cursor: pointer;
-  font-size: 18px;
+  font-size: calc(2em + 0.5vw); /* Dynamic font size based on viewport width */
   display: flex; /* Use flexbox to align items */
   align-items: center; /* Vertically align items */
   position: relative;
-  border-radius: 5px; /* Adjust this value for more or less roundness */
+  border-radius: 50px; /* Adjust this value for more or less roundness */
+  box-sizing: border-box; /* Include padding and border in size calculations */
+  height: auto; /* Allow height to adjust based on content */
+  transition: background-color 0.3s ease, font-size 0.3s ease, padding 0.3s ease; /* Smooth transitions */
+}
+
+/* Optional: Focus effect for accessibility */
+.ui-region .dropdown-btn:focus {
+  outline: none; /* Remove default outline */
+  box-shadow: 0 0 0 3px rgba(88, 4, 223, 0.3); /* Add a custom focus ring */
+}
+
+/* Hover effect */
+.ui-region .dropdown-btn:hover {
+  background-color: var(--dropdown-btn-hover); /* Darken on hover */
 }
 
 /* New class for the active state */
@@ -135,17 +210,9 @@
 .ui-region .dropdown-btn .text {
   flex-grow: 1; /* Allow text to expand and center itself */
   text-align: center; /* Center the text */
+  font-size: calc(2em + 1vw); /* Dynamic font size based on viewport width */
 }
 
-.ui-region .dropdown-btn::before {
-  content: '\25B6'; /* Unicode for a right-pointing arrow */
-  font-size: 16px;
-  transition: transform 0.3s ease;
-}
-
-.ui-region .dropdown-btn.active::before {
-  transform: rotate(90deg); /* Rotate arrow 90 degrees */
-}
 
 .ui-region .dropdown-content {
   display: none;
@@ -162,44 +229,6 @@
   display: flex; /* Use flexbox for alignment */
   justify-content: space-between; /* Space between the heading and the button */
   align-items: center; /* Vertically center items */
-}
-
-.ui-region .plus-button {
-  width: 50px;
-  height: 50px;
-  font-size: 30px;
-  border: none;
-  border-radius: 50%;
-  background-color: var(--plus-button-bg-color);
-  color: var(--plus-button-text-color);
-  cursor: pointer;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin-left: 10px; /* Spacing between the button and the heading */
-}
-
-.ui-region .alarms-container {
-  margin-top: 20px; /* Space above alarms */
-  width: 100%; /* Full width for alarms */
-  text-align: center; /* Center-align alarms text */
-}
-
-.ui-region .popup-menu {
-  display: none;
-  position: absolute;
-  top: 2.5%;
-  left: 2.5%;
-  width: 95%;
-  height: 95%;
-  background-color: var(--popup-menu-bg-color);
-  border: 1px solid var(--popup-menu-border-color);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  z-index: 100;
-  overflow-y: auto; /* Scrollable content if needed */
-}
-
-.ui-region .popup-menu.show {
-  display: block;
 }
 
 .ui-region .menu-header {
@@ -239,72 +268,3 @@
   font-size: 16px;
 }
 
-.ui-region .alarm-item {
-  margin: 5px 0;
-}
-
-.ui-region .alarm-item button {
-  margin-left: 10px;
-  background-color: var(--alarm-button-bg-color);
-  color: var(--plus-button-text-color);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 5px 10px;
-}
-
-.ui-region .alarm-item button:hover {
-  background-color: var(--alarm-button-hover-bg-color);
-}
-
-/* Toggle switch styling */
-.ui-region .switch {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  height: 20px;
-  margin-left: 10px; /* Space between the button and switch */
-}
-
-.ui-region .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.ui-region .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--switch-bg-color);
-  transition: .4s;
-  border-radius: 20px; /* Rounded corners for the switch */
-}
-
-.ui-region .slider:before {
-  position: absolute;
-  content: "";
-  height: 14px;
-  width: 14px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: .4s;
-  border-radius: 50%; /* Rounded ball on the switch */
-}
-
-/* Checked state for the toggle switch */
-.ui-region input:checked + .slider {
-  background-color: var(--switch-checked-bg-color); /* Color when checked */
-}
-
-.ui-region input:checked + .slider:before {
-  transform: translateX(20px); /* Move the ball to the right */
-<<<<<<< HEAD
-}
-=======
-}
->>>>>>> d04a769ad2fc59d76f7a335831f30f1c1634856e
