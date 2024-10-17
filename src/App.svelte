@@ -130,7 +130,7 @@
             <span class="text">Comfort</span>
             </button>
             <div class="dropdown-content" id="dropdown3">
-            <p>This is the hidden information for Dropdown 3.</p>
+            <ComfortPage />
             </div>
           </div>
 
@@ -234,6 +234,8 @@
 </div>
 
 <script>
+import { onMount } from 'svelte';
+import ComfortPage from './lib/ComfortPage.svelte';
 
 import { onMount } from 'svelte';
 import { AlarmClock } from 'lucide-svelte';
