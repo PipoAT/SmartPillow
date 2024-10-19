@@ -1,0 +1,122 @@
+.ui-region .plus-button {
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--plus-button-bg-color);
+    color: var(--plus-button-text-color);
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-left: 10px; /* Spacing between the button and the heading */
+  }
+  
+  .ui-region .alarms-container {
+    margin-top: 20px; /* Space above alarms */
+    width: 100%; /* Full width for alarms */
+    text-align: center; /* Center-align alarms text */
+  }
+  
+  .ui-region .popup-menu {
+    display: none;
+    position: relative;
+    top: 2.5%;
+    left: 2.5%;
+    width: 95%;
+    height: 95%;
+    background-color: var(--popup-menu-bg-color);
+    border: 1px solid var(--popup-menu-border-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 100;
+    overflow-y: auto; /* Scrollable content if needed */
+  }
+  
+  @keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+  
+  .ui-region .popup-menu.shake {
+    animation: shake 0.5s; /* Adjust duration to match the timeout in JavaScript */
+    animation-iteration-count: 1;
+  }
+  
+  .ui-region .popup-menu.show {
+    display: block;
+  }
+
+  .ui-region .alarm-item {
+    margin: 5px 0;
+  }
+  
+  .ui-region .alarm-item button {
+    margin-left: 10px;
+    background-color: var(--alarm-button-bg-color);
+    color: var(--plus-button-text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 5px 10px;
+  }
+  
+  .ui-region .alarm-item button:hover {
+    background-color: var(--alarm-button-hover-bg-color);
+  }
+  
+  /* Toggle switch styling */
+  .ui-region .switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    margin-left: 10px; /* Space between the button and switch */
+  }
+  
+  .ui-region .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .ui-region .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--switch-bg-color);
+    transition: .4s;
+    border-radius: 20px; /* Rounded corners for the switch */
+  }
+  
+  .ui-region .slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%; /* Rounded ball on the switch */
+  }
+  
+  /* Checked state for the toggle switch */
+  .ui-region input:checked + .slider {
+    background-color: var(--switch-checked-bg-color); /* Color when checked */
+  }
+  
+  .ui-region input:checked + .slider:before {
+    transform: translateX(20px); /* Move the ball to the right */
+  }

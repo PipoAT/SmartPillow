@@ -181,7 +181,7 @@
 // @ts-nocheck
 
   import { onMount } from 'svelte';
-
+  import ComfortPage from './lib/ComfortPage.svelte';
   let showUiRegion = false;
   let pillowImage; // Declare pillowImage variable
   let showSquares = true; // State to control the visibility of squares

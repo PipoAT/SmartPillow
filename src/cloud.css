@@ -1,0 +1,16 @@
+	:global(body) {
+		overflow: hidden;
+	}
+
+	.background-cloud {
+		/* Purple gradient background */
+		background: linear-gradient(135deg, #7955d4, #957bd2);
+		color: white; /* Text color */
+		overflow: hidden; /* Hide overflow for clouds */
+		position: relative; /* Position relative for absolutely positioned clouds */
+	}
+
+	.cloud {
+		position: absolute; /* Position clouds absolutely */
+		fill: white; /* Change the fill color for filled clouds */
+	}
