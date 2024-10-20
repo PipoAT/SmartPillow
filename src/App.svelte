@@ -15,16 +15,15 @@
       <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div class="square" on:click={() => handleSquareClick('Setting')}>Setting</div>
     </div>
-
     <button class="reset-button" on:click={resetSquares}>Show Squares Again</button>
-    
+
     <!-- Dropdown Sleep/Health -->
     <div class="dropdown">
       <button class="dropdown-btn" on:click={(event) => toggleDropdown('dropdown1', event)}>
         <span class="text">Sleep/Health</span>
       </button>
       <div class="dropdown-content" id="dropdown1">
-        <p>This is the hidden information for Dropdown 1.</p>
+        <HealthAndSleep />
       </div>
     </div>
 
@@ -182,6 +181,8 @@
 
   import { onMount } from 'svelte';
   import ComfortPage from './lib/ComfortPage.svelte';
+  import Settings from './lib/Pillow_Settings.svelte';
+  import HealthAndSleep from './lib/HealthAndSleep.svelte';
   let showUiRegion = false;
   let pillowImage; // Declare pillowImage variable
   let showSquares = true; // State to control the visibility of squares
