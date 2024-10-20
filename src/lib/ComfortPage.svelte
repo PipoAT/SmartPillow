@@ -1,5 +1,11 @@
 <script>
   import thermometer from "../assets/Thermometer.webp";
+  import sponge from "../assets/FirmnessImages/Sponge.png";
+  import ball from "../assets/FirmnessImages/Ball.png";
+  import bottle from "../assets/FirmnessImages/Bottle.png";
+  import wood from "../assets/FirmnessImages/Wood.avif";
+  import steel from "../assets/FirmnessImages/Steel.png";
+  import diamond from "../assets/FirmnessImages/Diamond.webp";
   // Declare a reactive variable for progress
   let setTemperature = 50;
   let temperature = 50;
@@ -25,9 +31,41 @@
               : // Above 90, keep it Red (No color change)
                 `rgb(255, 0, 0)`;
 
+  // Function to interpolate between colors representing temperature
+  $: textColor =
+    temperature < 45
+      ? // Below 40, keep it Blue (No color change)
+        `rgb(0, 0, 0)`
+      : temperature < 55
+        ? // Interpolate from Blue (0, 0, 255) to Light Blue (0, 255, 255) between 40% and 55%
+          `rgb(255, ${255 - Math.round(255 * ((temperature - 40) / 15))}, 0)`
+        : temperature < 70
+          ? // Interpolate from Light Blue (0, 255, 255) to Yellow (255, 255, 0) between 55% and 70%
+            `rgb(${255 - Math.round(255 * ((temperature - 55) / 15))}, 0, ${255 - (255 - Math.round(255 * ((temperature - 55) / 15)))})`
+          : temperature < 80
+            ? // Interpolate from Yellow (255, 255, 0) to Orange (255, 165, 0) between 70% and 80%
+              `rgb(0, ${255 - (255 - Math.round(90 * ((temperature - 70) / 10)))}, 255)`
+            : // Interpolate from Orange (255, 165, 0) to Red (255, 0, 0) between 80% and 90%
+              temperature <= 90
+              ? `rgb(0, ${255 - Math.round(165 - 165 * ((temperature - 80) / 10))}, 255)`
+              : // Above 90, keep it Red (No color change)
+                `rgb(0, 255, 255)`;
+
   let setFirmness = 50;
   let firmness = 50;
   let firmnessStatus = "No Change";
+  $: firmnessImg =
+    firmness < 17
+      ? sponge
+      : firmness < 33
+        ? ball
+        : firmness < 50
+          ? bottle
+          : firmness < 67
+            ? wood
+            : firmness < 83
+              ? steel
+              : diamond;
 
   function wait(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -40,8 +78,7 @@
         tempStatus = "Warming Up...";
         temperature += 0.1;
         await wait(10);
-      }
-      else if (temperature > setTemperature) {
+      } else if (temperature > setTemperature) {
         tempStatus = "Cooling Down...";
         temperature -= 0.1;
         await wait(10);
@@ -59,8 +96,7 @@
         firmnessStatus = "Hardening...";
         firmness += 0.1;
         await wait(10);
-      }
-      else if (firmness > setFirmness) {
+      } else if (firmness > setFirmness) {
         firmnessStatus = "Softening...";
         firmness -= 0.1;
         await wait(10);
@@ -78,10 +114,17 @@
       <h1>Temperature</h1>
       <div class="subContent">
         <div class="text">
-          <h2>Current<br />Pillow<br />Temperature:<br />Status: {tempStatus}</h2>
+          <h2>
+            Current<br />Pillow<br />Temperature<br /><br />Status: {tempStatus}
+          </h2>
         </div>
         <div class="value">
-          <img class="tempImage" src={thermometer} />
+          <img
+            class="tempImage"
+            alt="Thermometer"
+            style="margin-left: 50px !important;"
+            src={thermometer}
+          />
           <div class="progress-bar">
             <!-- Gradient fill that dynamically changes width and color -->
             <div
@@ -90,13 +133,15 @@
                 2}%; background-color: {temperatureColor};"
             ></div>
           </div>
-          <h2 class="tempText">{Math.round(temperature)}°</h2>
+          <h2 class="tempText" style="color: {textColor};">
+            {Math.round(temperature)}°
+          </h2>
           <!--<progress class="tempProgress" style="--progress-color: {progressColor};" max="100" value={progress}></progress>-->
         </div>
       </div>
       <div class="subContent">
         <div class="text">
-          <h2>Set<br />Pillow<br />Temperature:</h2>
+          <h2>Set<br />Pillow<br />Temperature</h2>
         </div>
         <div class="value">
           <div class="progress-container">
@@ -119,21 +164,35 @@
       <h1>Firmness</h1>
       <div class="subContent">
         <div class="text">
-          <h2>Current<br />Pillow<br />Firmness:<br />Status: {firmnessStatus}</h2>
+          <h2>
+            Current<br />Pillow<br />Firmness<br /><br />Status: {firmnessStatus}
+          </h2>
         </div>
         <div class="value">
           <h1>{Math.round(firmness)}%</h1>
+          <img
+            style="margin-left: 25% !important;"
+            alt="Pillow Firmness"
+            width="100px"
+            height="auto"
+            src={firmnessImg}
+          />
         </div>
       </div>
       <div class="subContent">
         <div class="text">
-          <h2>Set<br />Pillow<br />Firmness:</h2>
+          <h2>Set<br />Pillow<br />Firmness</h2>
         </div>
         <div class="value">
           <div class="progress-container">
-
             <!-- Range Slider to edit progress -->
-            <input type="range" min="0" max="100" bind:value={setFirmness} on:change={changeFirmness}/>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              bind:value={setFirmness}
+              on:change={changeFirmness}
+            />
 
             <!-- Display the percentage -->
             <p>{setFirmness}%</p>
@@ -146,8 +205,7 @@
 
 <style>
   h1,
-  h2,
-  h3 {
+  h2 {
     text-align: center;
   }
 
@@ -186,25 +244,8 @@
     align-items: center;
   }
 
-  progress {
-    width: 100%;
-    height: 20px;
-    margin-bottom: 10px;
-  }
-
   input[type="range"] {
     width: 100%;
-  }
-
-  .tempProgress {
-    top: 97px;
-    right: 82px;
-    height: 55px;
-    width: 230px;
-    transform: rotate(270deg);
-    position: absolute;
-    z-index: -1;
-    appearance: none;
   }
 
   .tempImage {
@@ -213,22 +254,10 @@
     z-index: 100;
   }
 
-  /* Style for the progress bar */
-  progress::-webkit-progress-bar {
-    background-color: #f3f3f3; /* Background color */
-    border-radius: 25px;
-    overflow: hidden;
-  }
-
-  /* Style for the value portion (Chrome/Safari) */
-  progress::-webkit-progress-value {
-    background-color: var(--progress-color); /* Green color for progress */
-  }
-
   /* Custom progress bar styling */
   .progress-bar {
     top: 97px;
-    left: 65px;
+    left: -28px;
     height: 55px;
     width: 230px;
     transform: rotate(270deg);
@@ -242,13 +271,7 @@
   /* The gradient fill div inside the progress bar */
   .fill {
     height: 100%;
-    transition:
-      width,
-      background-color;
-  }
-
-  img {
-    margin-left: 145px;
+    transition: width, background-color;
   }
 
   .tempText {
@@ -256,6 +279,6 @@
     width: 50px;
     z-index: 1;
     top: 185px;
-    left: 158px;
+    left: 64px;
   }
 </style>

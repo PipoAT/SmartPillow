@@ -226,8 +226,10 @@
     <button class="button-test">Wake Up</button>
     <button class="button-test">Sleep</button>
     <button class="button-test">Reset</button>
-    <div class="pillow" style="display: flex; justify-content: center; align-items: center;">
+    <div class="pillow" style="position: relative;
+    display: inline-block; justify-content: center; align-items: center;">
       <img id="pillowimage" src="/pillow.png" width="200px" height="200px">
+      <img id="pillowoverlay" src="/pillowOverlay.png" width="200px" height="200px">
     </div>
     <p id="pillowcolorindicator" style="display: flex; justify-content: center; align-items: center;">Pillow Color: White</p>
     <p id="pillowduration" style="display: flex; justify-content: center; align-items: center;">Duration: 0 minutes</p> 
@@ -449,9 +451,16 @@ function closeMenu() {
 
 function updatePillowColor(event) {
     const selectedColor = event.target.value;
-    const pillowImage = document.getElementById('pillowimage');
+    const pillowImage = document.getElementById('pillowoverlay');
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = selectedColor;
+    ctx.fillRect(0, 0, 1, 1);
+
+    const pixelData = ctx.getImageData(0, 0, 1, 1).data;
     if (pillowImage) {
-      pillowImage.style.backgroundColor = selectedColor;
+      pillowImage.style.backgroundColor = `rgba(${pixelData[0]}, ${pixelData[1]}, ${pixelData[2]}, 0.25)`;
     }
 
     const textDisplay = document.getElementById('pillowcolorindicator');
