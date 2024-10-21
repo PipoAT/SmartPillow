@@ -155,8 +155,8 @@
             </div>
             <br>
             <div class="upload-audio">
-              <input type="file" accept="audio/*" />
-              <button>Upload Audio</button>
+              <input type="file" accept="audio/*"/>
+              <button on:click={playUploadedAudio}>Play Uploaded Audio</button>
             </div>
 
             <h2>Color</h2>
@@ -254,6 +254,7 @@ let pillowImage; // Declare pillowImage variable
 let showSquares = true; // State to control the visibility of squares
 let selectedAudio = 'src/assets/audio1.mp3';
 let audio = new Audio();
+let uploadedAudio = ''; // Declare uploadedAudio variable
 
 let dropdowns = [];
 let activeDropdown = null;
@@ -588,6 +589,23 @@ function updateAudio(event) {
 function playErrorAudio() {
   var audio = new Audio('error.mp3'); // Path to your error.mp3 file
   audio.play();
+}
+
+
+function playUploadedAudio() {
+  const fileInput = document.querySelector('.upload-audio input[type="file"]');
+  if (fileInput && fileInput.files.length > 0) {
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      uploadedAudio = event.target.result;
+      audio.src = uploadedAudio;
+      audio.play();
+    };
+    reader.readAsDataURL(file);
+  } else {
+    alert('Please upload an audio file first.');
+  }
 }
 
 
