@@ -224,16 +224,77 @@
     <div class="title-bar">
       <p>Testing UI Partition</p>
     </div>
-    <button class="button-test">Wake Up</button>
-    <button class="button-test">Sleep</button>
-    <button class="button-test">Reset</button>
+    <h2>Project: Smart Pillow</h2>
+    <h2>Team Members:</h2>
+    <h3>Andrew Pipo <br />Dylan Bok <br />Kate Plas <br />Casey Jackson</h3>
+    <h2>Smart Object Mockup:</h2>
     <div class="pillow" style="position: relative;
     display: inline-block; justify-content: center; align-items: center;">
       <img id="pillowimage" src="/pillow.png" width="200px" height="200px">
       <img id="pillowoverlay" src="/pillowOverlay.png" width="200px" height="200px">
+      <div class="pillowBox">UI</div>
     </div>
     <p id="pillowcolorindicator" style="display: flex; justify-content: center; align-items: center;">Pillow Color: White</p>
     <p id="pillowduration" style="display: flex; justify-content: center; align-items: center;">Duration: 0 minutes</p> 
+    <Modal>
+      <Content>
+        <h1>Smart Pillow Info</h1>
+        <p>This page contains info on how to use each page of the smart pillow, as well as the testing area on the right.</p>
+        <h2>Sleep/Health Section</h2>
+        <p>Insert sleep info here</p>
+        <h2>Alarm Section</h2>
+        <p>The default alarm page shows 1 alarm set for 8:30 AM. Click the plus icon to add a new alarm. 
+          It will open up a section that will allow you to specify the time of your alarm, and the sound you want to play when the alarm goes off.
+          You can then save or cancel your alarm settings. Once you save, the new alarm will appear on the screen.
+          The alarms will go off at the time specified if it is enabled. You can disable the alarm via the switch next to it, 
+          or remove the alarm altogether bu clicking the "Remove" button.</p>
+        <h2>Comfort Section</h2>
+        <p>The comfort page allows the user to set the desired temperature and firmness of the pillow. To change the temperature, 
+          simply move the slider next to where it says "Set Pillow Temperature". After a few seconds the thermometer indicating the 
+          actual temperature of the pillow will move to the desired level, simulating the pillow changing temperature. Repeat 
+          these steps to set the firmness of the pillow. The percentage shows how firm the pillow currently is, with 100% 
+          being the hardest amount. The image below the percentage gives a visual representation of how firm the pillow currently is, 
+          going from sponge for softest, all the way to diamond for hardest. Note a real pillow would likely take longer for 
+          the pillow temperature/firmness to reach desired levels.
+        </p>
+        <h2>Personalization Section</h2>
+        <p>The personalization section allows user to set desired parameters to improve the aesthetic of the pillow. 
+          The first section allows the user to upload their own audio file to be included as an option for the alarm noise 
+          alongside the two defaults. The second section allows the user to customize the color of their pillow for a set 
+          amount of time. Choose from a selection of default colors, or create your own custom color. Once you select your color, 
+          you can see the results reflected in the testing area on the right. You can also set a color duration if you only want the 
+          color to be active for a few minutes.
+        </p>
+        <h2>Settings</h2>
+        <p>Insert settings info here</p>
+        <h2>Testing Section</h2>
+        <p>The purpose of the testing section is to give general info on the pillow, as well as show a mockup of the smart 
+          pillow and allow an admin to simulate pillow controls for testing purposes. The section first shows the title of 
+          this project, as well as the group members who contributed to the project. The next area shows a mockup of the pillow. 
+          Use this area to see where the Smart Pillow UI would appear on the physical object and see the pillow change color 
+          based on the input to the personalization section. The last area provides buttons for testing purposes. The 
+          "Smart Pillow Info" button gives information on how to operate the various sections of the UI. The "Simulate Sleep" 
+          button is used to test a full night cycle. Simply put in the time to start sleeping and hit the "Start" button. 
+          The sleep simulator will go until the set alarm time is reached, at which point it will stop and set off the alarm. 
+          Use this to test if the alarm is working as expected and if the sleep cycle/health info is displaying as expected.
+          If you need to stop the simulation, click the "Stop" button. Finally, the "Reset to Default" button resets the UI 
+          to default settings, removing extra alarms, custom colors/audio, etc.
+        </p>
+      </Content>
+      <Trigger>
+        <button class="button-test">Smart Pillow Info</button>
+      </Trigger>
+    </Modal>
+    <button class="button-test" on:click={toggleSimSleepVisibility}>Simulate Sleep</button>
+    {#if simSleepVisibile}
+    <div class="sleepSimulatorMenu">
+      <input type="time" bind:value={simSleepTime} />
+      <button class="timeButton" on:click={simulateSleep}>Start</button>
+      <button class="timeButton" on:click={stopSimulation}>Stop</button>
+    </div>
+    <p style="text-align:center">{simulatedTime}</p>
+    {/if}
+    <button class="button-test">Reset to Default</button>
   </div>
 </div>
 
@@ -246,14 +307,17 @@ import { Cog } from 'lucide-svelte';
 import { BedDouble } from 'lucide-svelte';
 import { ChartCandlestick } from 'lucide-svelte';
 import { Cloud as CloudIcon, Cloudy as CloudyIcon, Moon } from 'lucide-svelte'; // Import both Cloud and Cloudy icons
+import Modal from "./lib/Modal.svelte"
+import Trigger from "./lib/Trigger.svelte"
+import Content from "./lib/Content.svelte"
 
 let upcomingAlarm = '';
-let alarms = [{ time: "08:30 AM", enabled: false }];
+let alarms = [{ time: "08:30 AM", disabled: false }];
 
 let showUiRegion = false;
 let pillowImage; // Declare pillowImage variable
 let showSquares = true; // State to control the visibility of squares
-let selectedAudio = 'src/assets/audio1.mp3';
+let selectedAudio = '/audio1.mp3';
 let audio = new Audio();
 let uploadedAudio = ''; // Declare uploadedAudio variable
 
@@ -261,6 +325,10 @@ let dropdowns = [];
 let activeDropdown = null;
 
 let customColors = [];
+
+let simSleepVisibile = false;
+let simSleepTime = "";
+let simulatedTime = "";
 
 onMount(() => {
     //dropdowns = document.querySelectorAll('.dropdown-content');
@@ -616,5 +684,42 @@ function addCustomColor() {
     if (color && !customColors.includes(color)) {
       customColors = [...customColors, color];
     }
+}
+
+function toggleSimSleepVisibility() {
+  simSleepVisibile = !simSleepVisibile;
+}
+
+function wait(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+async function simulateSleep() {
+  let date = new Date();
+  let dateString = date.toDateString();
+  let alarm = alarms.find(x => x.disabled == false);
+  if (alarm) {
+    let alarmDateString = dateString.slice(0, 10) + "," + dateString.slice(10) + " " + alarm.time;
+    let sleepDateString = dateString.slice(0, 10) + "," + dateString.slice(10) + " " + simSleepTime;
+    let alarmDate = new Date(alarmDateString);
+    let sleepDate = new Date(sleepDateString);
+    if (alarmDate < sleepDate) {
+      alarmDate.setDate(alarmDate.getDate() + 1);
+    }
+    simulatedTime = sleepDate.toLocaleTimeString();
+    while (alarmDate > sleepDate) {
+      await wait(2);
+      sleepDate.setMinutes(sleepDate.getMinutes() + 1);
+      simulatedTime = sleepDate.toLocaleTimeString();
+    }
+    playAudio();
+  }
+  else {
+    alert("No Valid Alarms!");
+  }
+}
+
+function stopSimulation() {
+  stopAudio();
 }
 </script>
