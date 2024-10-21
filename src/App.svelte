@@ -157,6 +157,7 @@
             <div class="upload-audio">
               <input type="file" accept="audio/*"/>
               <button on:click={playUploadedAudio}>Play Uploaded Audio</button>
+              <button on:click={stopAudio}>Stop</button>
             </div>
 
             <h2>Color</h2>
