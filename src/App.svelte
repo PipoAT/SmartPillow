@@ -46,7 +46,6 @@
       </div>
       
     </div>
-</div>
     <!--  <button class="reset-button" on:click={resetSquares}>Show Squares Again</button>  -->
 
     <!-- Dropdown Sleep/Health -->
@@ -58,7 +57,7 @@
         <span class="text">Sleep/Health</span>
       </button>
       <div class="dropdown-content" id="dropdown1">
-        <p>This is the hidden information for Dropdown 1.</p>
+        <HealthAndSleep />
       </div>
     </div>
 
@@ -214,7 +213,7 @@
         <span class="text">Setting</span>
       </button>
       <div class="dropdown-content" id="dropdown5">
-        <p>This is the hidden information for Dropdown 5.</p>
+        <Settings/>
       </div>
     </div>
   </div>
@@ -301,6 +300,8 @@
 <script>
 import { onMount } from 'svelte';
 import ComfortPage from './lib/ComfortPage.svelte';
+import Settings from './lib/Pillow_Settings.svelte';
+import HealthAndSleep from './lib/HealthAndSleep.svelte';
 import { AlarmClock } from 'lucide-svelte';
 import { UserRoundCog } from 'lucide-svelte';
 import { Cog } from 'lucide-svelte';
