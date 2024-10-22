@@ -35,14 +35,13 @@
     <p class="user-title">Hello, User</p>
     <div class="upcontainer" style:display={showSquares ? 'flex' : 'none'}>
       <div class="square" on:click={() => handleSquareClick('Alarm')}>
-        <div class="icon-box-square">
-          <AlarmClock />
+          <!-- <div class= square-icon>   <AlarmClock /></div>  -->
           <p>Upcoming Alarm: {upcomingAlarm}</p>
 
-        </div>
       </div>
-      <div class="square" on:click={() => handleSquareClick('Setting')}>Setting
+      <div class="square" on:click={() => handleSquareClick('Comfort')}>
         
+        <ComfortPage {temperature} {firmness}><p slot="comfortMain"> </p> updateTemperature={updateTemperature} </ComfortPage>
       </div>
       
     </div>
@@ -130,7 +129,7 @@
             <span class="text">Comfort</span>
             </button>
             <div class="dropdown-content" id="dropdown3">
-            <ComfortPage />
+              <ComfortPage {temperature} {firmness} updateTemperature={updateTemperature} updateFirmness={updateFirmness}> <div slot="temperature"> </div> </ComfortPage>
             </div>
           </div>
 
@@ -318,9 +317,14 @@ import { Cog } from 'lucide-svelte';
 import { BedDouble } from 'lucide-svelte';
 import { ChartCandlestick } from 'lucide-svelte';
 import { Cloud as CloudIcon, Cloudy as CloudyIcon, Moon } from 'lucide-svelte'; // Import both Cloud and Cloudy icons
+//import temperature from './lib/ComfortPage.svelte';
+//import firmness from './lib/ComfortPage.svelte';
 import Modal from "./lib/Modal.svelte"
 import Trigger from "./lib/Trigger.svelte"
 import Content from "./lib/Content.svelte"
+
+let temperature = 50;  // Initial temperature value
+let firmness = 50; // Initial firmness value
 
 let upcomingAlarm = '';
 let alarms = [{ time: "08:30 AM", disabled: false }];
@@ -342,6 +346,7 @@ let simSleepTime = "";
 let simulatedTime = "";
 let testSleepHours;
 let testHeartRate;
+
 
 onMount(() => {
     //dropdowns = document.querySelectorAll('.dropdown-content');
@@ -411,7 +416,7 @@ function findUpcomingAlarm() {
       alarmDate.setDate(alarmDate.getDate() + 1);
     }
     // Calculate time difference in minutes
-    const timeDiff = (alarmDate.getTime() - currentTime.getTime()) / (1000 * 60); // Convert milliseconds to minutes
+    const timeDiff = (alarmDate.getTime() - currentTime.getTime()) / (1000 * 60);
 
     // Check if the alarm is in the future and closer than the previous closest
     if (timeDiff > 0 && timeDiff < closestTimeDiff) {
@@ -511,6 +516,7 @@ function toggleDropdown(dropdownId, event) {
     });
 
     const dropdown = document.getElementById(dropdownId);
+
     if (dropdown.style.display === 'block') {
         dropdown.style.display = 'none';
         event.target.classList.remove('active'); // Remove active class
@@ -518,7 +524,7 @@ function toggleDropdown(dropdownId, event) {
     } else {
         dropdown.style.display = 'block';
         event.target.classList.add('active'); // Add active class
-        mainContainer.classList.add('blur'); // Add blur when opening
+        //mainContainer.classList.add('blur'); // Add blur when opening
     }
 }
 
@@ -739,4 +745,14 @@ async function simulateSleep() {
 function stopSimulation() {
   stopAudio();
 }
+
+  // Function to update the temperature
+  function updateTemperature(newTemperature) {
+    temperature = newTemperature;
+  }
+
+  // Function to update the firmness in MainPage
+  function updateFirmness(newFirmness) {
+    firmness = newFirmness;
+  }
 </script>

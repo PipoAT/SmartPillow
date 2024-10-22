@@ -7,9 +7,10 @@
   import steel from "../assets/FirmnessImages/Steel.png";
   import diamond from "../assets/FirmnessImages/Diamond.webp";
   // Declare a reactive variable for progress
-  let setTemperature = 50;
-  let temperature = 50;
+  export let setTemperature = 50;
+  export let temperature = 50;
   let tempStatus = "No Change";
+  export let updateTemperature; // Function to send updates to the parent
 
   // Function to interpolate between colors representing temperature
   $: temperatureColor =
@@ -51,9 +52,11 @@
               : // Above 90, keep it Red (No color change)
                 `rgb(0, 255, 255)`;
 
-  let setFirmness = 50;
-  let firmness = 50;
+  export let setFirmness = 50;
+  export let firmness = 50;
   let firmnessStatus = "No Change";
+  export let updateFirmness; // Function to send firmness updates to the parent
+  
   $: firmnessImg =
     firmness < 17
       ? sponge
@@ -71,7 +74,7 @@
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  async function changeTemperature() {
+  export async function changeTemperature() {
     await wait(5000);
     while (temperature != setTemperature) {
       if (temperature < setTemperature) {
@@ -84,6 +87,9 @@
         await wait(10);
       }
       temperature = Number(temperature.toFixed(1));
+
+      // Send the updated temperature to the parent component
+      updateTemperature(temperature);
     }
     tempStatus = "No Change";
   }
@@ -102,11 +108,17 @@
         await wait(10);
       }
       firmness = Number(firmness.toFixed(1));
+
+      // Send the updated firmness to the parent component
+      updateFirmness(firmness);
     }
     firmnessStatus = "No Change";
   }
 </script>
 
+
+
+<slot name="comfortMain">
 <div class="comfortPage">
   <h1 class="header">Comfort</h1>
   <div class="mainContent">
@@ -202,6 +214,16 @@
     </div>
   </div>
 </div>
+</slot>
+
+
+<slot name="temperature" >
+  <!-- Default content for temperature if none provided -->
+  Temperature: {temperature}°C
+  <br>
+  Firmness: {firmness}
+  <br>
+</slot>
 
 <style>
   h1,
