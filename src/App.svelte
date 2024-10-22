@@ -407,9 +407,11 @@ function findUpcomingAlarm() {
     
     const alarmDate = new Date();
     alarmDate.setHours(alarmHours, minutes, 0); // Set alarm time to today's date
-
+    if (alarmDate < currentTime) {
+      alarmDate.setDate(alarmDate.getDate() + 1);
+    }
     // Calculate time difference in minutes
-    const timeDiff = (alarmDate.getMinutes() - currentTime.getMinutes()) / (1000 * 60); // Convert milliseconds to minutes
+    const timeDiff = (alarmDate.getTime() - currentTime.getTime()) / (1000 * 60); // Convert milliseconds to minutes
 
     // Check if the alarm is in the future and closer than the previous closest
     if (timeDiff > 0 && timeDiff < closestTimeDiff) {
