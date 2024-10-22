@@ -302,3 +302,68 @@
   font-size: 16px;
 }
 
+.ui-region .alarm-item {
+  margin: 5px 0;
+}
+
+.ui-region .alarm-item button {
+  margin-left: 10px;
+  background-color: var(--alarm-button-bg-color);
+  color: var(--plus-button-text-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.ui-region .alarm-item button:hover {
+  background-color: var(--alarm-button-hover-bg-color);
+}
+
+/* Toggle switch styling */
+.ui-region .switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  margin-left: 10px; /* Space between the button and switch */
+}
+
+.ui-region .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ui-region .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--switch-bg-color);
+  transition: .4s;
+  border-radius: 20px; /* Rounded corners for the switch */
+}
+
+.ui-region .slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%; /* Rounded ball on the switch */
+}
+
+/* Checked state for the toggle switch */
+.ui-region input:checked + .slider {
+  background-color: var(--switch-checked-bg-color); /* Color when checked */
+}
+
+.ui-region input:checked + .slider:before {
+  transform: translateX(20px); /* Move the ball to the right */
+}
