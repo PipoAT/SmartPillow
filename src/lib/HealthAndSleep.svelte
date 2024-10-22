@@ -2,6 +2,9 @@
     import { onMount } from 'svelte';
     // @ts-ignore
     import Chart from 'chart.js/auto';
+
+    export let testSleepHours;
+    export let testHeartRate;
   
     let sleepData = [];
     let heartRateData = [];
@@ -16,7 +19,7 @@
   
     onMount(() => {
       sleepData = sleepHours; 
-      heartRateData = heartRates; 
+      heartRateData = heartRates;
       avgSleep = sleepHours.reduce((a, b) => a + b) / sleepHours.length;
       avgHeartRate = heartRates.reduce((a, b) => a + b) / heartRates.length;
   
@@ -67,6 +70,24 @@
         }
       });
     });
+
+    setInterval(function() {
+      if (testSleepHours) {
+        sleepData[0] = testSleepHours;
+      }
+      if (testHeartRate) {
+        heartRateData[0] = testHeartRate;
+      }
+
+      sleepChart.data.datasets[0].data = sleepData;
+      heartRateChart.data.datasets[0].data = heartRateData;
+
+      avgSleep = sleepData.reduce((a, b) => a + b) / sleepHours.length;
+      avgHeartRate = heartRateData.reduce((a, b) => a + b) / heartRates.length;
+      
+      sleepChart.update();
+      heartRateChart.update();
+    }, 5000);
   
 
     function destroyCharts() {
@@ -91,6 +112,7 @@
   .avg-metrics {
     font-size: 1.2rem;
     margin-top: 10px;
+    color: black;
   }
 
   .chart {
@@ -99,7 +121,7 @@
 </style>
 
 <div class="health-container">
-  <h3>Health and Sleep Stats</h3>
+  <h3 style="color: black">Health and Sleep Stats</h3>
   <p class="avg-metrics">Average Sleep: {avgSleep.toFixed(1)} hours per night</p>
   <div class="chart">
     <canvas id="sleepChart" width="400" height="200"></canvas>

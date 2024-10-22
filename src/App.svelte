@@ -46,6 +46,7 @@
       </div>
       
     </div>
+    </div>
     <!--  <button class="reset-button" on:click={resetSquares}>Show Squares Again</button>  -->
 
     <!-- Dropdown Sleep/Health -->
@@ -57,7 +58,7 @@
         <span class="text">Sleep/Health</span>
       </button>
       <div class="dropdown-content" id="dropdown1">
-        <HealthAndSleep />
+        <HealthAndSleep testSleepHours={testSleepHours} testHeartRate={testHeartRate} />
       </div>
     </div>
 
@@ -240,7 +241,10 @@
         <h1>Smart Pillow Info</h1>
         <p>This page contains info on how to use each page of the smart pillow, as well as the testing area on the right.</p>
         <h2>Sleep/Health Section</h2>
-        <p>Insert sleep info here</p>
+        <p>The Sleep/Health section allows users to see certain sleep and health aspects from the past week. The two 
+          features currently implemented on this page are a chart showing the amount of sleep the user had each night 
+          over the past week and one showing the average heart rate of the user each night over the past week.
+        </p>
         <h2>Alarm Section</h2>
         <p>The default alarm page shows 1 alarm set for 8:30 AM. Click the plus icon to add a new alarm. 
           It will open up a section that will allow you to specify the time of your alarm, and the sound you want to play when the alarm goes off.
@@ -265,7 +269,13 @@
           color to be active for a few minutes.
         </p>
         <h2>Settings</h2>
-        <p>Insert settings info here</p>
+        <p>The settings page provides some basic options for users to change to fit their preferences. The "Connect to Phone" 
+          option would allow users to connect the Smart Pillow UI to their phone, allowing them to edit pillow preferences from 
+          their phone rather than the screen on the Smart Pillow. The "Time Format" option allows use to choose between a 24-hour 
+          clock or a 12-hour clock. The "Default Volume" option allows users to change the volume that their alarm sound plays at. 
+          Finally, the "Return to Default" button returns the options to their default values. Note that most of these settings 
+          do not have functionality at this time.
+        </p>
         <h2>Testing Section</h2>
         <p>The purpose of the testing section is to give general info on the pillow, as well as show a mockup of the smart 
           pillow and allow an admin to simulate pillow controls for testing purposes. The section first shows the title of 
@@ -275,9 +285,10 @@
           "Smart Pillow Info" button gives information on how to operate the various sections of the UI. The "Simulate Sleep" 
           button is used to test a full night cycle. Simply put in the time to start sleeping and hit the "Start" button. 
           The sleep simulator will go until the set alarm time is reached, at which point it will stop and set off the alarm. 
-          Use this to test if the alarm is working as expected and if the sleep cycle/health info is displaying as expected.
-          If you need to stop the simulation, click the "Stop" button. Finally, the "Reset to Default" button resets the UI 
-          to default settings, removing extra alarms, custom colors/audio, etc.
+          Use this to test if the alarm is working as expected and if the sleep/health info is displaying as expected. The UI 
+          is currently set to change values on the first day in the Sleep/Health section. The sleep hours are set to the 
+          difference between the sleep time and the alarm time, and the heart rate is set to a random value between 50 and 
+          100. If you need to stop the simulation, click the "Stop" button.
         </p>
       </Content>
       <Trigger>
@@ -293,7 +304,6 @@
     </div>
     <p style="text-align:center">{simulatedTime}</p>
     {/if}
-    <button class="button-test">Reset to Default</button>
   </div>
 </div>
 
@@ -330,6 +340,8 @@ let customColors = [];
 let simSleepVisibile = false;
 let simSleepTime = "";
 let simulatedTime = "";
+let testSleepHours;
+let testHeartRate;
 
 onMount(() => {
     //dropdowns = document.querySelectorAll('.dropdown-content');
@@ -708,6 +720,8 @@ async function simulateSleep() {
       alarmDate.setDate(alarmDate.getDate() + 1);
     }
     simulatedTime = sleepDate.toLocaleTimeString();
+    testSleepHours = (alarmDate.getTime() - sleepDate.getTime()) / 1000 / 3600;
+    testHeartRate = Math.round(Math.random() * (100 - 50) + 50);
     while (alarmDate > sleepDate) {
       await wait(2);
       sleepDate.setMinutes(sleepDate.getMinutes() + 1);
